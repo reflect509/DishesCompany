@@ -1,0 +1,75 @@
+﻿<Page x:Class="DishesCompany.EditProduct"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DishesCompany"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EditProduct">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Text="Редактирование продукта" FontSize="35"
+                   HorizontalAlignment="Center"/>
+        <StackPanel Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <TextBlock Name="FullName" FontSize="20" TextWrapping="Wrap"/>
+            <Button Name="ClickExit" Content="Выйти" Click="ExitClick" FontSize="25"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Orientation="Vertical" 
+                    Name="ProductStackPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <TextBlock Text="Артикул товара:" FontSize="20" />
+            <TextBox Name="TextBoxArticul" Text="{Binding Articul}" FontSize="20" IsReadOnly="True"/>
+            <TextBlock Text="Наименование товара:" FontSize="20" />
+            <TextBox Name="TextBoxProductName" Text="{Binding Product_name}" FontSize="20" />
+            <TextBlock Text="Категория товара:" FontSize="20" />
+            <TextBox Name="TextBoxProductType" Text="{Binding Product_type}" FontSize="20" />
+            <TextBlock Text="Количество товара на складе:" FontSize="20" />
+            <TextBox Name="TextBoxAmount" Text="{Binding Amount}" FontSize="20" />
+            <TextBlock Text="Единица измерения:" FontSize="20" />
+            <TextBox Name="TextBoxMeasurementUnit" Text="{Binding Measurement_unit}" FontSize="20" />
+            <TextBlock Text="Производитель:" FontSize="20"/>
+            <TextBox Name="TextBoxManufacturer" Text="{Binding Manufacturer}" FontSize="20" />
+            <TextBlock Text="Поставщик:" FontSize="20"/>
+            <TextBox Name="TextBoxSupplier" Text="{Binding Supplier}" FontSize="20" />
+            <TextBlock Text="Стоимость:" FontSize="20" />
+            <TextBox Name="TextBoxProductCost" Text="{Binding Product_cost}" FontSize="20" />
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Orientation="Vertical"
+                    VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Описание:" FontSize="20" />
+            <StackPanel>
+                <TextBox Name="TextBoxDescription" Text="{Binding Description}" FontSize="20" 
+                         TextWrapping="Wrap" AcceptsReturn="True"
+                         MaxLines="5" MinLines="5" MinWidth="200" MaxWidth="265"  HorizontalAlignment="Left"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Изображение" FontSize="20" Margin="0 10 0 0"/>
+                <Button Name="SelectImageButton" Content="Выбрать..." Click="SelectImageButton_Click"
+                        Margin="30 10 0 0" FontSize="20"/>
+            </StackPanel>
+
+        </StackPanel>
+        <Button Grid.Column="1" Grid.Row="2" FontSize="27" Grid.ColumnSpan="2"
+                VerticalAlignment="Center" HorizontalAlignment="Center" 
+                Content="Сохранить изменения" Click="EditButtonClick" />
+        <Button Grid.Column="1" Grid.Row="2" FontSize="30" Grid.ColumnSpan="2"
+                VerticalAlignment="Center" HorizontalAlignment="Right"
+                Click="BackClick"   Content="Назад" />
+    </Grid>
+</Page>
