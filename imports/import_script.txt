@@ -1,0 +1,15 @@
+\c dish_sale
+
+SET client_encoding = UTF8;
+
+\copy roles(role_name) from 'C:\Users\malac\OneDrive\Документы\VisualStudioLabs\source\repos\Сессия 1\imports\role_import.csv' with (format csv, header, delimiter ';');
+
+\copy products(articul, product_name, measurement_unit, product_cost, max_discount, manufacturer, supplier, product_type, current_discount, amount, description, image) from 'C:\Users\malac\OneDrive\Документы\VisualStudioLabs\source\repos\Сессия 1\imports\product_import.csv' with (format csv, header, delimiter ';');
+
+\copy delivery_places(delivery_place_address) from 'C:\Users\malac\OneDrive\Документы\VisualStudioLabs\source\repos\Сессия 1\imports\delivery_place_import.csv' with (format csv, delimiter ';');
+
+\copy users(full_name, login, pass, role_id) from 'C:\Users\malac\OneDrive\Документы\VisualStudioLabs\source\repos\Сессия 1\imports\user_import.csv' with (format csv, header, delimiter ';');
+
+\copy orders(order_date, delivery_date, delivery_place_id, user_id, receiving_code, order_status) from 'C:\Users\malac\OneDrive\Документы\VisualStudioLabs\source\repos\Сессия 1\imports\order_import.csv' with (format csv, header, delimiter ';');
+
+\copy product_orders(product_articul, order_id, amount) from 'C:\Users\malac\OneDrive\Документы\VisualStudioLabs\source\repos\Сессия 1\imports\product_order_import.csv' with (format csv, header, delimiter ';');

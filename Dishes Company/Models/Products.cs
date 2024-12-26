@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Media.Imaging;
+using System.Reflection;
 
 namespace DishesCompany
 {
@@ -39,10 +40,13 @@ namespace DishesCompany
         {
             get
             {
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string resourcesDirectory = Path.Combine(baseDirectory, "..", "..", "..", "Resources", "Images");
+
                 BitmapImage bitmapImage = new BitmapImage();
-                Stream stream = Image != null ?
-                    File.OpenRead($"C:/Users/malac/OneDrive/Документы/VisualStudioLabs/source/repos/Authorizartion/Authorizartion/Resources/Images/{Image}") :
-                    File.OpenRead($"C:/Users/malac/OneDrive/Документы/VisualStudioLabs/source/repos/Authorizartion/Authorizartion/Resources/Images/picture.jpg");
+                Stream stream = Image != null ? 
+                    File.OpenRead(Path.Combine(resourcesDirectory, Image)) :
+                    File.OpenRead(Path.Combine(resourcesDirectory, "picture.png"));
 
                 using (stream)
                 {
