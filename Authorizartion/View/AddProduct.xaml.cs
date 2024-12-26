@@ -1,18 +1,8 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace DishesCompany
 {
@@ -43,15 +33,34 @@ namespace DishesCompany
 
         private void AddProductClick(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(TextBoxArticul.Text) ||
+                string.IsNullOrEmpty(TextBoxProductName.Text) ||
+                string.IsNullOrEmpty(TextBoxProductType.Text) ||
+                string.IsNullOrEmpty(TextBoxAmount.Text) ||
+                string.IsNullOrEmpty(TextBoxMeasurementUnit.Text) ||
+                string.IsNullOrEmpty(TextBoxManufacturer.Text) ||
+                string.IsNullOrEmpty(TextBoxSupplier.Text) ||
+                string.IsNullOrEmpty(TextBoxProductCost.Text)
+                )
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля");
+                return;
+            }
             if (!int.TryParse(TextBoxAmount.Text, out int productAmount) || !decimal.TryParse(TextBoxProductCost.Text, CultureInfo.InvariantCulture, out decimal productCost))
             {
-                MessageBox.Show("Пожалуйства, введите числа в корректном формате");
+                MessageBox.Show("Пожалуйста, введите числа в корректном формате");
+                return;
+            }
+            if (img == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите изображение");
                 return;
             }
             string filePath = Path.Combine(imageSource, $"{TextBoxArticul.Text}{Path.GetExtension(img.SafeFileName)}");
             File.Copy(img.FileName, filePath, true);
+            MessageBox.Show("Изображение успешно добавлено");
 
-            Products product = new Products(TextBoxArticul.Text, TextBoxProductName.Text, TextBoxProductType.Text, productAmount, TextBoxMeasurementUnit.Text, 
+            Products product = new Products(TextBoxArticul.Text, TextBoxProductName.Text, TextBoxProductType.Text, productAmount, TextBoxMeasurementUnit.Text,
                 TextBoxManufacturer.Text, TextBoxSupplier.Text, productCost, TextBoxDescription.Text, $"{TextBoxArticul.Text}{Path.GetExtension(filePath)}");
 
             DatabaseControl.AddProductRecord(product);

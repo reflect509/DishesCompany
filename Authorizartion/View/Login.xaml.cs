@@ -1,19 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DishesCompany
 {
@@ -34,11 +20,11 @@ namespace DishesCompany
             {
                 if (Password.Password != null)
                 {
-                    Users Users = DatabaseControl.GetUser(TextboxLogin.Text, Password.Password);
-                    if (Users is not null)
+                    Users User = DatabaseControl.GetUser(TextboxLogin.Text, Password.Password);
+                    if (User is not null)
                     {
                         MessageBox.Show("Вход успешен");
-                        mainwindow.OpenPage(MainWindow.Pages.MainApp, Users);
+                        mainwindow.OpenPage(MainWindow.Pages.MainApp, User);
                     }
                     else
                     {
@@ -57,8 +43,14 @@ namespace DishesCompany
         }
 
         private void ReginClick(object sender, RoutedEventArgs e)
-        {            
+        {
             mainwindow.OpenPage(MainWindow.Pages.Regin);
+        }
+
+        private void GuestClick(object sender, RoutedEventArgs e)
+        {
+            Users user = new Users();
+            mainwindow.OpenPage(MainWindow.Pages.MainApp, user);
         }
     }
 }

@@ -31,6 +31,8 @@
         <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Orientation="Vertical" 
                     Name="ProductStackPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
 
+            <TextBlock Text="ID товара:" FontSize="20" />
+            <TextBox Name="TextBoxID" Text="{Binding Product_id}" FontSize="20" IsReadOnly="True"/>
             <TextBlock Text="Артикул товара:" FontSize="20" />
             <TextBox Name="TextBoxArticul" Text="{Binding Articul}" FontSize="20" IsReadOnly="True"/>
             <TextBlock Text="Наименование товара:" FontSize="20" />

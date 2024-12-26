@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DishesCompany
 {
@@ -30,33 +17,30 @@ namespace DishesCompany
 
             this.mainWindow = mainwindow;
             this.DataContext = productViewModel;
-            this.user = user;
-
-            FullName.Text = user.Full_name;
-
-            if (user.Role_id != 3)
+            if (user != null)
             {
-                AddProductButton.Visibility = Visibility.Collapsed;
-                EditProductButton.Visibility = Visibility.Collapsed;
-                DeleteProductButton.Visibility = Visibility.Collapsed;
+                this.user = user;
+
+                FullName.Text = user.Full_name;
+
+                if (user.Role_id != 3)
+                {
+                    AddProductButton.Visibility = Visibility.Collapsed;
+                    EditProductButton.Visibility = Visibility.Collapsed;
+                    DeleteProductButton.Visibility = Visibility.Collapsed;
+                    ProductListBox.SelectionMode = SelectionMode.Multiple;
+                }
+                else if (user.Role_id == 3)
+                {
+                    CreateOrderButton.Visibility = Visibility.Collapsed;
+                    GoToOrdersButton.Visibility = Visibility.Collapsed;
+                    ProductListBox.SelectionMode = SelectionMode.Single;
+                }
             }
-            RemainingsCheck();
         }
-
-
         private void ExitClick(object sender, RoutedEventArgs e)
         {
             mainWindow.OpenPage(MainWindow.Pages.Login);
-        }
-
-        private void RemainingsCheck()
-        {
-            foreach(ItemCollection item in ProductListView.Items)
-            {
-                ProductListView.Items.IndexOf(item);
-                
-            }
-
         }
 
         private void SortAscButton_Click(object sender, RoutedEventArgs e)
@@ -89,9 +73,9 @@ namespace DishesCompany
 
         private void DeleteProductButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ProductListView.SelectedItem != null)
+            if (ProductListBox.SelectedItem != null)
             {
-                Products product = (Products)ProductListView.SelectedItem;
+                Products product = (Products)ProductListBox.SelectedItem;
                 string articul = product.Articul;
 
                 if (DatabaseControl.ValidProduct(articul))
@@ -119,9 +103,9 @@ namespace DishesCompany
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ProductListView.SelectedItem != null)
+            if (ProductListBox.SelectedItem != null)
             {
-                Products product = (Products)ProductListView.SelectedItem;
+                Products product = (Products)ProductListBox.SelectedItem;
                 mainWindow.OpenPage(MainWindow.Pages.EditProduct, product, user);
             }
             else
@@ -191,6 +175,42 @@ namespace DishesCompany
             }
 
             return searchedProducts;
+        }
+
+        private void CreateOrderClick(object sender, RoutedEventArgs e)
+        {
+            if (user.User_id != 0)
+            {
+                if (ProductListBox.SelectedItems.Count != 0)
+                {
+                    ObservableCollection<Products> selectedProducts = new ObservableCollection<Products>();
+                    foreach (Products product in ProductListBox.SelectedItems)
+                    {
+                        selectedProducts.Add(product);
+                    }
+
+                    mainWindow.OpenPage(MainWindow.Pages.CreateOrder, user, selectedProducts);
+                }
+                else
+                {
+                    MessageBox.Show("Выберете товары из списка");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Чтобы создать заказ нужно войти в аккаунт");
+            }
+        }
+        private void GoToOrdersClick(object sender, RoutedEventArgs e)
+        {
+            if (user.User_id != 0)
+            {
+                mainWindow.OpenPage(MainWindow.Pages.ViewOrders, user);
+            }
+            else
+            {
+                MessageBox.Show("Чтобы перейти к заказам нужно войти в аккаунт");
+            }
         }
     }
 }

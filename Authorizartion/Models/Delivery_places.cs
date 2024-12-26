@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DishesCompany
 {
-    public class DeliveryPlaces
+    public class Delivery_places
     {
         [Key] public int Delivery_place_id { get; set; }
         public string Delivery_place_address { get; set; }

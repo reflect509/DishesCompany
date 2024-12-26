@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DishesCompany
 {
@@ -25,6 +20,11 @@ namespace DishesCompany
             Login = login;
             Pass = pass;
             Role_id = 1;
-        }        
+        }
+        public Users()
+        {
+            Full_name = "Гость";
+            Role_id = 0;
+        }
     }
 }
