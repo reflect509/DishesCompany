@@ -65,7 +65,7 @@
             <ListBox Name="ProductListView" ItemsSource="{Binding Products}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                       VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch">
 
-                <ListView.ItemContainerStyle>
+                <ListBox.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Background" Value="Transparent"/>
                         <Style.Triggers>
