@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Win32;
+using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.IO;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using Microsoft.Win32;
 
 namespace DishesCompany
 {
@@ -67,7 +55,7 @@ namespace DishesCompany
 
             if (img != null)
             {
-                File.Delete($"{imageSource}{tempProduct.Image}");                
+                File.Delete($"{imageSource}{tempProduct.Image}");
                 File.Copy(img.FileName, Path.Combine(imageSource, $"{TextBoxArticul.Text}{Path.GetExtension(img.SafeFileName)}"), true);
                 tempProduct.Image = $"{TextBoxArticul.Text}{Path.GetExtension(img.SafeFileName)}";
             }

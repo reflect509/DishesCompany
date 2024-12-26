@@ -1,13 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Npgsql;
-using System;
-using System.Collections.Generic;
+﻿using DishesCompany.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace DishesCompany
 {
@@ -38,7 +31,7 @@ namespace DishesCompany
         public static void AddUserRecord(string full_name, string login, string password)
         {
             using (DbAppContext ctx = new DbAppContext())
-            {                
+            {
                 ctx.Users.Add(new Users(full_name, login, password));
                 ctx.SaveChanges();
             }
@@ -73,7 +66,7 @@ namespace DishesCompany
                 ctx.SaveChanges();
             }
         }
-        
+
 
         public static List<Products> GetProducts()
         {
@@ -116,7 +109,7 @@ namespace DishesCompany
 
         public static int GetCount(List<Products> products)
         {
-            using(DbAppContext ctx = new DbAppContext())
+            using (DbAppContext ctx = new DbAppContext())
             {
                 return products.Count();
             }
@@ -144,6 +137,55 @@ namespace DishesCompany
             using (DbAppContext ctx = new DbAppContext())
             {
                 return !ctx.Product_orders.Any(p => p.Product_articul == articul);
+            }
+        }
+
+        public static List<Orders> GetActiveOrders(Users user)
+        {
+            using (DbAppContext ctx = new DbAppContext())
+            {
+                return ctx.Orders.Include(p => p.DeliveryPlace_entity).Include(p => p.Product_order_entities)
+                    .ThenInclude(p => p.Product_entity)
+                    .Where(p => p.Order_status == "Новый" && p.User_id == user.User_id).ToList();
+            }
+        }
+        public static List<Orders> GetCompletedOrders(Users user)
+        {
+            using (DbAppContext ctx = new DbAppContext())
+            {
+                return ctx.Orders.Include(p => p.Product_order_entities).ThenInclude(p => p.Product_entity)
+                    .Where(p => p.Order_status == "Завершен" && p.User_id == user.User_id).ToList();
+            }
+        }
+
+        public static List<Delivery_places> GetDelivery_places()
+        {
+            using (DbAppContext ctx = new DbAppContext())
+            {
+                return ctx.Delivery_places.ToList();
+            }
+        }
+        public static void AddOrder(Orders order)
+        {
+            using (DbAppContext ctx = new DbAppContext())
+            {
+                ctx.Orders.Add(order);
+                foreach (Product_orders product_order in order.Product_order_entities)
+                {
+                    ctx.Entry(ctx.Products.FirstOrDefault(p => p.Articul == product_order.Product_articul)).State = EntityState.Unchanged;
+                }
+                ctx.SaveChanges();
+            }
+        }
+        public static void ChangeProductAmount(Products product)
+        {
+            using (DbAppContext ctx = new DbAppContext())
+            {
+                Products _product = ctx.Products.First(p => product.Articul == p.Articul);
+
+                _product.Amount = product.Amount;
+
+                ctx.SaveChanges();
             }
         }
     }

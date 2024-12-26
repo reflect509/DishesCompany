@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DishesCompany
 {
@@ -26,7 +13,7 @@ namespace DishesCompany
         {
             InitializeComponent();
             this.mainwindow = mainwindow;
-        }        
+        }
         private void RegClick(object sender, RoutedEventArgs e)
         {
             bool userExists = DatabaseControl.CheckUser(TextboxLogin.Text);
@@ -49,7 +36,7 @@ namespace DishesCompany
                                         MessageBox.Show("Регистрация успешна");
                                         DatabaseControl.AddUserRecord(
                                             $"{TextboxName.Text} {TextboxSurname.Text} {TextboxLastName.Text}"
-                                            ,TextboxLogin.Text, Password.Password);
+                                            , TextboxLogin.Text, Password.Password);
                                         mainwindow.OpenPage(MainWindow.Pages.Login);
                                     }
                                     else

@@ -1,14 +1,7 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
+﻿using DishesCompany.View;
+using DishesCompany.ViewModels;
+using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DishesCompany
 {
@@ -29,7 +22,10 @@ namespace DishesCompany
             Regin,
             MainApp,
             EditProduct,
-            AddProduct
+            AddProduct,
+            ViewOrders,
+            CreateOrder,
+            ViewOrderDetails
         }
 
         public void OpenPage(Pages page)
@@ -54,6 +50,15 @@ namespace DishesCompany
             {
                 frame.Navigate(new AddProduct(this, user));
             }
+            else if (page == Pages.ViewOrders)
+            {
+                OrderViewModel orderViewModel = new OrderViewModel(user);
+                frame.Navigate(new ViewOrders(this, user, orderViewModel));
+            }
+        }
+        public void OpenPage(Pages page, Users user, ObservableCollection<Products> products)
+        {
+            frame.Navigate(new CreateOrder(this, user, products));
         }
         public void OpenPage(Pages page, Products product, Users user)
         {

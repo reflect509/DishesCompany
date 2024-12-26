@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace DishesCompany
@@ -15,7 +10,7 @@ namespace DishesCompany
     {
         public event PropertyChangedEventHandler PropertyChanged;
         [Key] public int Product_id { get; set; }
-        public string Articul { get; set; }
+        [Required] public string Articul { get; set; }
         public string Product_name { get; set; }
         public string Measurement_unit { get; set; }
         public decimal Product_cost { get; set; }
@@ -42,8 +37,8 @@ namespace DishesCompany
         }
         public BitmapImage? BitmapImage
         {
-            get 
-            { 
+            get
+            {
                 BitmapImage bitmapImage = new BitmapImage();
                 Stream stream = Image != null ?
                     File.OpenRead($"C:/Users/malac/OneDrive/Документы/VisualStudioLabs/source/repos/Authorizartion/Authorizartion/Resources/Images/{Image}") :

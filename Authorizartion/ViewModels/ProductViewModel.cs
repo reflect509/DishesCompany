@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using System.Collections.Specialized;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace DishesCompany
 {
     public class ProductViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private ObservableCollection<Products> products;        
+        private ObservableCollection<Products> products;
         public ObservableCollection<Products> Products
         {
             get { return products; }
@@ -60,7 +51,7 @@ namespace DishesCompany
             }
         }
 
-         public ProductViewModel()
+        public ProductViewModel()
         {
             LoadProducts();
         }
