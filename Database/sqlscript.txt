@@ -38,10 +38,10 @@ CREATE SEQUENCE receiving_code_seq
 CREATE TABLE orders (
 	order_id serial PRIMARY KEY,
 	order_date date NOT NULL CHECK(order_date <= CURRENT_DATE),
-	delivery_date date CHECK(delivery_date <= CURRENT_DATE),
+	delivery_date date CHECK(delivery_date => CURRENT_DATE),
 	delivery_place_id int NOT NULL,
 	user_id int,
-	receiving_code varchar(15) DEFAULT nextval('receiving_code_seq'::regclass),,
+	receiving_code varchar(15) DEFAULT nextval('receiving_code_seq'::regclass),
 	order_status varchar(30) NOT NULL,
 	FOREIGN KEY (delivery_place_id) REFERENCES delivery_places(delivery_place_id),
 	FOREIGN KEY (user_id) REFERENCES users(user_id)
