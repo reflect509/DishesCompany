@@ -39,10 +39,12 @@ namespace DishesCompany
         {
             get
             {
+                string Directory = AppDomain.CurrentDomain.BaseDirectory;
+                string ImagePath = Path.Combine(Directory, "..", "..", "..", "Resources", "Images");
                 BitmapImage bitmapImage = new BitmapImage();
                 Stream stream = Image != null ?
-                    File.OpenRead($"C:/Users/malac/OneDrive/Документы/VisualStudioLabs/source/repos/Authorizartion/Authorizartion/Resources/Images/{Image}") :
-                    File.OpenRead($"C:/Users/malac/OneDrive/Документы/VisualStudioLabs/source/repos/Authorizartion/Authorizartion/Resources/Images/picture.jpg");
+                    File.OpenRead(Path.Combine(ImagePath, Image)) :
+                    File.OpenRead(Path.Combine(ImagePath, "picture.png"));
 
                 using (stream)
                 {
