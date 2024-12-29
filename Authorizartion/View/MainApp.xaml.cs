@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace DishesCompany
 {
     /// <summary>
-    /// Логика взаимодействия для MainAppAdmin.xaml
+    /// Логика взаимодействия для MainApp.xaml
     /// </summary>
     public partial class MainApp : Page
     {
@@ -149,13 +149,8 @@ namespace DishesCompany
             if (selectedManufacturer != null && selectedManufacturer != "Все производители")
             {
                 searchedProducts = DatabaseControl.FilteredProducts(selectedManufacturer, searchedProducts);
-
-                return searchedProducts;
             }
-            else
-            {
-                return searchedProducts;
-            }
+            return searchedProducts;
         }
 
         private List<Products> SearchProducts(string searchText)

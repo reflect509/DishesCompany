@@ -53,7 +53,7 @@ namespace DishesCompany
 
         public ProductViewModel()
         {
-            LoadProducts();
+            LoadProducts(); 
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
