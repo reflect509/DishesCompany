@@ -8,7 +8,6 @@ namespace DishesCompany.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Users user;
-        public Users User { get; }
         private ObservableCollection<Orders> activeOrders;
         public ObservableCollection<Orders> ActiveOrders
         {
