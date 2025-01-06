@@ -76,9 +76,8 @@ namespace DishesCompany
             if (ProductListBox.SelectedItem != null)
             {
                 Products product = (Products)ProductListBox.SelectedItem;
-                string articul = product.Articul;
 
-                if (DatabaseControl.ValidProduct(articul))
+                if (DatabaseControl.ValidProduct(product.Articul))
                 {
                     ProductViewModel productViewModel = (ProductViewModel)this.DataContext;
                     productViewModel.Products.Remove(product);
